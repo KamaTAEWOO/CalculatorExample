@@ -28,10 +28,10 @@
 - ToastMessage.dart: 사용자에게 메시지를 표시하기 위한 토스트 메시지 기능을 제공합니다.
 
 ## 📸 스크린샷
-![Screenshot_20250323_151700.png](Screenshot_20250323_151700.png)
-![Screenshot_20250323_151713.png](Screenshot_20250323_151713.png)
-![img.png](img.png)
-![img_1.png](img_1.png)
+<img src="Screenshot_20250323_151700.png" alt="Screenshot 1" width="200" />
+<img src="Screenshot_20250323_151713.png" alt="Screenshot 2" width="200" />
+<img src="img.png" alt="Image 3" width="200" />
+<img src="img_1.png" alt="Image 4" width="200" />
 
 ## 🛠 사용된 패키지
 
