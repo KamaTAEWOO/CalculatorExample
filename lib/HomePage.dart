@@ -6,6 +6,8 @@ import 'MyButton.dart';
 import 'ToastMessage.dart';
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -61,91 +63,7 @@ class _HomePageState extends State<HomePage> {
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 4),
                 itemBuilder: (BuildContext context, int index) {
-                  // Clear Button
-                  if (index == 0) {
-                    return MyButton(
-                      buttontapped: () {
-                        setState(() {
-                          userInput = '';
-                          answer = '0';
-                        });
-                      },
-                      buttonText: buttons[index].value,
-                      color: Colors.blue[50],
-                      textColor: Colors.black,
-                    );
-                  }
-
-                  // +/- button
-                  else if (index == 1) {
-                    return MyButton(
-                      buttonText: buttons[index].value,
-                      color: Colors.blue[50],
-                      textColor: Colors.black,
-                    );
-                  }
-                  // % Button
-                  else if (index == 2) {
-                    return MyButton(
-                      buttontapped: () {
-                        setState(() {
-                          userInput += buttons[index].value;
-                        });
-                      },
-                      buttonText: buttons[index].value,
-                      color: Colors.blue[50],
-                      textColor: Colors.black,
-                    );
-                  }
-                  // Delete Buttonr
-                  else if (index == 3) {
-                    return MyButton(
-                      buttontapped: () {
-                        setState(() {
-                          userInput =
-                              userInput.substring(0, userInput.length - 1);
-                        });
-                      },
-                      buttonText: buttons[index].value,
-                      color: Colors.blue[50],
-                      textColor: Colors.black,
-                    );
-                  }
-                  // Equal_to Button
-                  else if (index == 18) {
-                    return MyButton(
-                      buttontapped: () {
-                        setState(() {
-                          equalPressed();
-                        });
-                      },
-                      buttonText: buttons[index].value,
-                      color: Colors.orange[700],
-                      textColor: Colors.white,
-                    );
-                  }
-
-                  //  other buttons
-                  else {
-                    return MyButton(
-                      buttontapped: () {
-                        setState(() {
-                          // user가 0부터 입력할 경우 제외
-                          // 연산자부터 입력할 경우 제외
-                          String value = buttons[index].value;
-                          bool checkCondition = isInvalidInput(userInput, buttons[index].value, operators);
-                          if (checkCondition) userInput += value;
-                        });
-                      },
-                      buttonText: buttons[index].value,
-                      color: isOperator(buttons[index].value)
-                          ? Colors.blueAccent
-                          : Colors.white,
-                      textColor: isOperator(buttons[index].value)
-                          ? Colors.white
-                          : Colors.black,
-                    );
-                  }
+                  return keyPad(index);
                 }),
           ),
         ],
@@ -153,28 +71,80 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  bool isOperator(String x) {
-    if (x == '/' || x == 'x' || x == '-' || x == '+' || x == '=') {
-      return true;
-    }
-    return false;
-  }
-
-// function to calculate the input operation
-  void equalPressed() {
-    String finaluserinput = userInput;
-    finaluserinput = userInput.replaceAll('x', '*');
-
-    Parser p = Parser();
-    Expression exp = p.parse(finaluserinput);
-    ContextModel cm = ContextModel();
-    double eval = exp.evaluate(EvaluationType.REAL, cm);
-
-    // Check if result is an integer
-    if (eval == eval.toInt()) {
-      answer = eval.toInt().toString();
-    } else {
-      answer = eval.toString();
+  // 키패드 버튼 생성
+  MyButton keyPad(int index) {
+    switch (index) {
+      case 0: // Clear Button
+        return MyButton(
+          buttontapped: () {
+            setState(() {
+              userInput = '';
+              answer = '0';
+            });
+          },
+          buttonText: buttons[index].value,
+          color: Colors.blue[50],
+          textColor: Colors.black,
+        );
+      case 1: // +/- button
+        return MyButton(
+          buttonText: buttons[index].value,
+          color: Colors.blue[50],
+          textColor: Colors.black,
+        );
+      case 2: // % Button
+        return MyButton(
+          buttontapped: () {
+            setState(() {
+              userInput += buttons[index].value;
+            });
+          },
+          buttonText: buttons[index].value,
+          color: Colors.blue[50],
+          textColor: Colors.black,
+        );
+      case 3: // Delete Button
+        return MyButton(
+          buttontapped: () {
+            setState(() {
+              userInput =
+                  userInput.substring(0, userInput.length - 1);
+            });
+          },
+          buttonText: buttons[index].value,
+          color: Colors.blue[50],
+          textColor: Colors.black,
+        );
+      case 18: // Equal_to Button
+        return MyButton(
+          buttontapped: () {
+            setState(() {
+              answer = equalPressed(userInput, answer);
+            });
+          },
+          buttonText: buttons[index].value,
+          color: Colors.orange[700],
+          textColor: Colors.white,
+        );
+      default: // Other buttons
+        return MyButton(
+          buttontapped: () {
+            setState(() {
+              // user가 0부터 입력할 경우 제외
+              // 연산자부터 입력할 경우 제외
+              String value = buttons[index].value;
+              bool checkCondition = isInvalidInput(userInput, buttons[index].value, operators);
+              if (checkCondition) userInput += value;
+            });
+          },
+          buttonText: buttons[index].value,
+          color: isOperator(buttons[index].value)
+              ? Colors.blueAccent
+              : Colors.white,
+          textColor: isOperator(buttons[index].value)
+              ? Colors.white
+              : Colors.black,
+        );
     }
   }
 }
