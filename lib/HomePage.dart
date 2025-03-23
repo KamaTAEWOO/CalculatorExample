@@ -169,6 +169,12 @@ class _HomePageState extends State<HomePage> {
     Expression exp = p.parse(finaluserinput);
     ContextModel cm = ContextModel();
     double eval = exp.evaluate(EvaluationType.REAL, cm);
-    answer = eval.toString();
+
+    // Check if result is an integer
+    if (eval == eval.toInt()) {
+      answer = eval.toInt().toString();
+    } else {
+      answer = eval.toString();
+    }
   }
 }
