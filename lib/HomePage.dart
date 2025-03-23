@@ -131,14 +131,21 @@ class _HomePageState extends State<HomePage> {
                         setState(() {
                           // user가 0부터 입력할 경우 제외
                           // 연산자부터 입력할 경우 제외
-                          if (userInput.isEmpty &&
-                              buttons[index].value == '0' ||
-                              operators.contains(buttons[index].value)) {
+                          String value = buttons[index].value;
+                          if (userInput.isEmpty && (value == '0' || operators.contains(value))) {
                             showToast('지금은 입력할 수 없습니다.');
                             return;
-                          } else {
-                            userInput += buttons[index].value;
                           }
+
+                          // Prevent entering two operators in a row or starting with operator
+                          if (operators.contains(value)) {
+                            if (userInput.isEmpty || operators.contains(userInput[userInput.length - 1])) {
+                              showToast('연산자를 입력할 수 없습니다.');
+                              return;
+                            }
+                          }
+
+                          userInput += value;
                         });
                       },
                       buttonText: buttons[index].value,
