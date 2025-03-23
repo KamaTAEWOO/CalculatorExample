@@ -32,32 +32,37 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: <Widget>[
           Expanded(
+            flex: 1,
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  Container(
-                    padding: const EdgeInsets.all(20),
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      userInput,
-                      style: const TextStyle(fontSize: 45, color: Colors.white),
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.all(20),
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        userInput,
+                        style: const TextStyle(fontSize: 45, color: Colors.white),
+                      ),
                     ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.all(15),
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      answer,
-                      style: const TextStyle(
-                          fontSize: 30,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.all(20),
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        answer,
+                        style: const TextStyle(
+                            fontSize: 30,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      ),
                     ),
-                  )
+                  ),
                 ]),
           ),
           Expanded(
-            flex: 3,
+            flex: 2,
             child: GridView.builder(
                 itemCount: buttons.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
