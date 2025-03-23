@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
 import 'CalculatorButton.dart';
 import 'MyButton.dart';
+import 'ToastMessage.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -9,11 +10,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  var userInput = '';
-  var answer = '';
+  var userInput = ''; // user input
+  var answer = '0'; // result value
 
   // Array of button
   List<CalculatorButton> buttons = CalculatorButton.values;
+  List<String> operators = ['/', 'x', '-', '+'];
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,7 @@ class _HomePageState extends State<HomePage> {
                     alignment: Alignment.centerRight,
                     child: Text(
                       userInput,
-                      style: const TextStyle(fontSize: 18, color: Colors.white),
+                      style: const TextStyle(fontSize: 45, color: Colors.white),
                     ),
                   ),
                   Container(
@@ -127,7 +129,16 @@ class _HomePageState extends State<HomePage> {
                     return MyButton(
                       buttontapped: () {
                         setState(() {
-                          userInput += buttons[index].value;
+                          // user가 0부터 입력할 경우 제외
+                          // 연산자부터 입력할 경우 제외
+                          if (userInput.isEmpty &&
+                              buttons[index].value == '0' ||
+                              operators.contains(buttons[index].value)) {
+                            showToast('지금은 입력할 수 없습니다.');
+                            return;
+                          } else {
+                            userInput += buttons[index].value;
+                          }
                         });
                       },
                       buttonText: buttons[index].value,
