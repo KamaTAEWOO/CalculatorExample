@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
 import 'CalculatorButton.dart';
+import 'CheckCondition.dart';
 import 'MyButton.dart';
 import 'ToastMessage.dart';
 
@@ -132,20 +133,8 @@ class _HomePageState extends State<HomePage> {
                           // user가 0부터 입력할 경우 제외
                           // 연산자부터 입력할 경우 제외
                           String value = buttons[index].value;
-                          if (userInput.isEmpty && (value == '0' || operators.contains(value))) {
-                            showToast('지금은 입력할 수 없습니다.');
-                            return;
-                          }
-
-                          // Prevent entering two operators in a row or starting with operator
-                          if (operators.contains(value)) {
-                            if (userInput.isEmpty || operators.contains(userInput[userInput.length - 1])) {
-                              showToast('연산자를 입력할 수 없습니다.');
-                              return;
-                            }
-                          }
-
-                          userInput += value;
+                          bool checkCondition = isInvalidInput(userInput, buttons[index].value, operators);
+                          if (checkCondition) userInput += value;
                         });
                       },
                       buttonText: buttons[index].value,
