@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
+import 'CalculatorButton.dart';
 import 'MyButton.dart';
 
 class HomePage extends StatefulWidget {
@@ -12,28 +13,7 @@ class _HomePageState extends State<HomePage> {
   var answer = '';
 
   // Array of button
-  final List<String> buttons = [
-    'C',
-    '+/-',
-    '%',
-    'DEL',
-    '7',
-    '8',
-    '9',
-    '/',
-    '4',
-    '5',
-    '6',
-    'x',
-    '1',
-    '2',
-    '3',
-    '-',
-    '0',
-    '.',
-    '=',
-    '+',
-  ];
+  List<CalculatorButton> buttons = CalculatorButton.values;
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +70,7 @@ class _HomePageState extends State<HomePage> {
                             answer = '0';
                           });
                         },
-                        buttonText: buttons[index],
+                        buttonText: buttons[index].value,
                         color: Colors.blue[50],
                         textColor: Colors.black,
                       );
@@ -99,7 +79,7 @@ class _HomePageState extends State<HomePage> {
                     // +/- button
                     else if (index == 1) {
                       return MyButton(
-                        buttonText: buttons[index],
+                        buttonText: buttons[index].value,
                         color: Colors.blue[50],
                         textColor: Colors.black,
                       );
@@ -109,15 +89,15 @@ class _HomePageState extends State<HomePage> {
                       return MyButton(
                         buttontapped: () {
                           setState(() {
-                            userInput += buttons[index];
+                            userInput += buttons[index].value;
                           });
                         },
-                        buttonText: buttons[index],
+                        buttonText: buttons[index].value,
                         color: Colors.blue[50],
                         textColor: Colors.black,
                       );
                     }
-                    // Delete Button
+                    // Delete Buttonr
                     else if (index == 3) {
                       return MyButton(
                         buttontapped: () {
@@ -126,7 +106,7 @@ class _HomePageState extends State<HomePage> {
                                 userInput.substring(0, userInput.length - 1);
                           });
                         },
-                        buttonText: buttons[index],
+                        buttonText: buttons[index].value,
                         color: Colors.blue[50],
                         textColor: Colors.black,
                       );
@@ -139,7 +119,7 @@ class _HomePageState extends State<HomePage> {
                             equalPressed();
                           });
                         },
-                        buttonText: buttons[index],
+                        buttonText: buttons[index].value,
                         color: Colors.orange[700],
                         textColor: Colors.white,
                       );
@@ -150,14 +130,14 @@ class _HomePageState extends State<HomePage> {
                       return MyButton(
                         buttontapped: () {
                           setState(() {
-                            userInput += buttons[index];
+                            userInput += buttons[index].value;
                           });
                         },
-                        buttonText: buttons[index],
-                        color: isOperator(buttons[index])
+                        buttonText: buttons[index].value,
+                        color: isOperator(buttons[index].value)
                             ? Colors.blueAccent
                             : Colors.white,
-                        textColor: isOperator(buttons[index])
+                        textColor: isOperator(buttons[index].value)
                             ? Colors.white
                             : Colors.black,
                       );
